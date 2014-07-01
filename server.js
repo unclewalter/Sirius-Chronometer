@@ -45,9 +45,10 @@ UDPServer.on('listening', function () {
 UDPServer.on('message', function (message, remote) {
   console.log(remote.address + ':' + remote.port +' - ' + message);
   console.log("Sending to clients - ", clients.length);
+  var messageArray = message.toString().split(",s")
   clients.forEach(function(client) {
     var payload = JSON.stringify({
-      someKey: 'your face'
+      message: messageArray
     });
     client.send(payload);
   });

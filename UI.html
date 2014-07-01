@@ -8,7 +8,8 @@
       console.log('websocket connected');
     };
     ws.onmessage = function (event) {
-      alert(event.data);
+      maxMessage = JSON.parse(event.data);
+      document.getElementById("TC_Field").innerHTML = maxMessage.message[0].toString().slice(0, - 1);
     };
   </script>
   <style type="text/css">
