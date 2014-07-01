@@ -1,64 +1,58 @@
-// Module dependencies.
+var config  = require('./config');
+var util    = require('./util');
+var express = require('express');
+var app     = express();
+var logger  = require('morgan');
+var server  = require('http').Server(app);
+var io      = require('socket.io')(server);
+var dgram   = require('dgram');
 
-var http = require('http')
-  , ws = require('websocket.io')
+var debug = function() {
+  if (config.debug) {
+    console.log.apply(console, arguments);
+  }
+};
 
-var dgram = require('dgram');
+// log all the things
+app.use(logger('dev'));
 
-var fs = require('fs');
-var ui = fs.readFileSync('UI.html');
+// serve static files
+app.use(express.static(__dirname + '/public'));
+
+// send index.html
+app.get('/', function(req, res) {
+  res.sendfile(__dirname + '/index.html');
+});
+
+// fire up some websockets
+io.on('connection', function (socket) {
+  debug('[io]', 'client connected:', socket.id);
+
+  socket.on('disconnect', function () {
+    debug('[io]', 'client disconnected:', socket.id);
+  });
+});
 
 // UDP server
+var udpServer = dgram.createSocket('udp4');
 
-var PORT = 33333;
-var HOST = '127.0.0.1';
-var UDPServer = dgram.createSocket('udp4');
+udpServer.on('message', function (datagram, remote) {
+  var messages = util.datagramToArray(datagram);
 
-// HTTP Server
+  debug('[udp]', 'datagram:', datagram);
+  debug('[io]', 'max-timestamp', messages);
 
-var server = http.createServer(function (req, res) {
-  res.writeHead(200, { 'Content-Type': 'text/html' });
-  res.end(ui);
+  io.emit('max-timestamp', messages)
 });
 
-var clients = [];
-
-// Attach websocket.io
-
-var webSocketServer = ws.attach(server);
-
-webSocketServer.on('connection', function(socket) {
-  console.log('websocket connection opened')
-  clients.push(socket);
-
-  socket.on('close', function() {
-    console.log('websocket connection closed')
-    clients.splice(clients.indexOf(socket));
-  });
+udpServer.on('listening', function () {
+    var address = udpServer.address();
+    console.log('UDP Server listening on udp://' + address.address + ":" + address.port);
 });
 
-UDPServer.on('listening', function () {
-    var address = UDPServer.address();
-    console.log('UDP Server listening on ' + address.address + ":" + address.port);
+// start the apps
+server.listen(config.port, function () {
+  console.log('Server running at http://127.0.0.1:' + config.port);
 });
 
-UDPServer.on('message', function (message, remote) {
-  console.log(remote.address + ':' + remote.port +' - ' + message);
-  console.log("Sending to clients - ", clients.length);
-  var messageArray = message.toString().split(",s")
-  clients.forEach(function(client) {
-    var payload = JSON.stringify({
-      message: messageArray
-    });
-    client.send(payload);
-  });
-
-});
-
-// Listen.
-
-UDPServer.bind(PORT, HOST);
-
-server.listen(3000, function () {
-  console.log('HTTP server listening on http://127.0.0.1:3000');
-});
+udpServer.bind(config.udp.port, config.udp.host);
