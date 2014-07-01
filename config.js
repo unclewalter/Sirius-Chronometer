@@ -11,5 +11,6 @@ module.exports =  {
   },
 
   // enable verbose logging
-  debug: false
+  debug: true
 };
+
