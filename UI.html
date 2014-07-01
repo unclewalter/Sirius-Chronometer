@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+  <title>Timecode Display</title>
+  <script type="text/javascript">
+    var ws = new WebSocket('ws://127.0.0.1:3000');
+    ws.onopen = function () {
+      console.log('websocket connected');
+    };
+    ws.onmessage = function (event) {
+      alert(event.data);
+    };
+  </script>
+  <style type="text/css">
+    body, html, .second_sweep, .time_display {height: 100%;}
+    body {
+      width: 100%;
+      background-color: #000;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .second_sweep div {
+      background-color: #333;
+      position:absolute;
+      width: 50%;
+      height: 100%;
+      padding: 0px;
+      margin: 0px;
+      border-right: 10px solid #555;
+      z-index: -1;
+      position:absolute;
+      left:0px;
+      top:0px;
+    }
+
+    .timecode {
+      position:absolute;
+      left:50%;
+      top:50%;
+      margin-top: -100px;
+      margin-left: -400px;
+    }
+
+    .timecode span {
+      font-size: 200px;
+      font-family: Arial, Helvetica;
+      color: #FFF;
+    }
+  </style>
+</head>
+<body>
+  <div class="time_display">
+    <div class="second_sweep"><div>&nbsp;</div></div>
+    <div class="timecode"><span id="TC_Field">00:00.00</span></div>
+  </div>
+</body>
+</html>
