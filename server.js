@@ -5,13 +5,15 @@ var app     = express();
 var logger  = require('morgan');
 var server  = require('http').Server(app);
 var io      = require('socket.io')(server);
-var dgram   = require('dgram');
+var osc     = require('node-osc')
 
 var debug = function() {
   if (config.debug) {
     console.log.apply(console, arguments);
   }
 };
+
+var qlist   = new Array();
 
 // log all the things
 app.use(logger('dev'));
@@ -28,31 +30,44 @@ app.get('/', function(req, res) {
 io.on('connection', function (socket) {
   debug('[io]', 'client connected:', socket.id);
 
+  // io.emit('max-message', qlist)
+
   socket.on('disconnect', function () {
     debug('[io]', 'client disconnected:', socket.id);
   });
 });
 
-// UDP server
-var udpServer = dgram.createSocket('udp4');
+// OSC server
+var oscServer = new osc.Server(config.udp.port, config.udp.host);
 
-udpServer.on('message', function (datagram, remote) {
-  var messages = util.datagramToArray(datagram);
+oscServer.on("message", function (datagram, rinfo) {
+  // var messages = util.datagramToArray(datagram);
 
   debug('[udp]', 'datagram:', datagram);
-  debug('[io]', 'max-timestamp', messages);
+  debug('[io]', 'max-message', datagram);
 
-  io.emit('max-timestamp', messages)
-});
+  // send max message to clients
+  io.emit('max-message', datagram)
 
-udpServer.on('listening', function () {
-    var address = udpServer.address();
-    console.log('UDP Server listening on udp://' + address.address + ":" + address.port);
+  // parse max message
+  var messagetype = datagram[0];
+  datagram.shift();
+  switch (messagetype) {
+    case "qlist-item":
+      qlist.push(datagram);
+      break;
+    case "command":
+      switch (command) {
+        // case "clear-qlist":
+          // qlist.splice(0,qlist.length);
+      }
+      break;
+    default:
+      console.error("Invalid Max message type.")
+  }
 });
 
 // start the apps
 server.listen(config.port, function () {
   console.log('Server running at http://127.0.0.1:' + config.port);
 });
-
-udpServer.bind(config.udp.port, config.udp.host);
