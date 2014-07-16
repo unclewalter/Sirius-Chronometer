@@ -13,6 +13,9 @@ var debug = function() {
   }
 };
 
+var marker = "";
+var movement = "";
+
 // log all the things
 app.use(logger('dev'));
 
@@ -28,7 +31,8 @@ app.get('/', function(req, res) {
 io.on('connection', function (socket) {
   debug('[io]', 'client connected:', socket.id);
 
-  // io.emit('max-message', qlist)
+  io.emit('max-message', ["movement", movement]);
+  io.emit('max-message', ["marker", marker]);
 
   socket.on('disconnect', function () {
     debug('[io]', 'client disconnected:', socket.id);
@@ -45,7 +49,19 @@ oscServer.on("message", function (datagram, rinfo) {
   debug('[io]', 'max-message', datagram);
 
   // send max message to clients
-  io.emit('max-message', datagram)
+  io.emit('max-message', datagram);
+
+  var messagetype = datagram[0];
+  datagram.shift();
+
+  switch (messagetype) {
+    case "movement":
+      movement = datagram[0];
+      break;
+    case "marker":
+      marker = datagram[0];
+      break;
+  }
 });
 
 // start the apps
