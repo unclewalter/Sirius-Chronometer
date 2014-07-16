@@ -13,8 +13,6 @@ var debug = function() {
   }
 };
 
-var qlist   = new Array();
-
 // log all the things
 app.use(logger('dev'));
 
