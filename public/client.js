@@ -3,6 +3,8 @@
   var socket = io();
   var displayLoop;
   var startref = 0;
+  var rawclock = 0;
+  var active = false;
 
   socket.on('connect', function () {
     console.log('connected to WebSocket at', socket.io.uri);
@@ -30,6 +32,17 @@
         break;
       case "stop":
         clearInterval(displayLoop);
+        active = false;
+        break;
+      case "sync":
+        if (Math.abs(rawclock-message[0])>20 && active) {
+          offset += rawclock-message[0];
+          console.log("resyncing by " + rawclock-message[0] + "ms.");
+        }
+        if (!active) {
+          start(message[0]);
+          startref = Date.now();
+        }
         break;
       case "movement":
         document.getElementById("MVT_Field").innerHTML = message;
@@ -43,14 +56,17 @@
 
     function start(offset) {
       if (typeof offset === "undefined") { offset = 0; }
-      displayLoop = setInterval(function() {
-        var rawclock = (Date.now()-startref) + offset;
-        var centseconds = Math.floor(rawclock/10);
-        var seconds = Math.floor(rawclock/1000)%60;
-        var minutes = Math.floor(rawclock/60000);
-        var TC_Format = pad(minutes, 2) + ":" + pad(seconds, 2) + "." + pad(centseconds, 2);
-        document.getElementById("TC_Field").innerHTML = TC_Format;
-      },10)
+      if (!active) {
+        displayLoop = setInterval(function() {
+          rawclock = (Date.now()-startref) + offset;
+          var centseconds = Math.floor(rawclock/10);
+          var seconds = Math.floor(rawclock/1000)%60;
+          var minutes = Math.floor(rawclock/60000);
+          var TC_Format = pad(minutes, 2) + ":" + pad(seconds, 2) + "." + pad(centseconds, 2);
+          document.getElementById("TC_Field").innerHTML = TC_Format;
+        },10)
+        active = true;
+      }
     }
 
     function pad(num, size) {
