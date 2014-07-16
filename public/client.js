@@ -26,24 +26,20 @@ var qlist = {startref: 0,
     console.log(message);
 
   // Message routing
-  // tried to implement it better using a dictionary/map. Can't wrap my head around it.
+  // Tried to implement it better using a dictionary/map. Will attempt again later.
   switch (messagetype) {
     case "qlist":
       qlist.cues = message;
       console.log(qlist);
       break;
-    case "command":
-      switch (command) {
-        case "start":
-          start();
-          break;
-      }
+    case "write":
+      document.getElementById("TC_Field").innerHTML = message;
       break;
     default:
       console.error("Invalid Max message type.")
   }
 
-    // document.getElementById("TC_Field").innerHTML = message;
+
   });
 
 
