@@ -48,23 +48,6 @@ oscServer.on("message", function (datagram, rinfo) {
 
   // send max message to clients
   io.emit('max-message', datagram)
-
-  // parse max message
-  var messagetype = datagram[0];
-  datagram.shift();
-  switch (messagetype) {
-    case "qlist-item":
-      qlist.push(datagram);
-      break;
-    case "command":
-      switch (command) {
-        // case "clear-qlist":
-          // qlist.splice(0,qlist.length);
-      }
-      break;
-    default:
-      console.error("Invalid Max message type.")
-  }
 });
 
 // start the apps
