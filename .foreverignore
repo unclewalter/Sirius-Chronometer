@@ -1,0 +1,7 @@
+# Max patches
+UDPSender.maxpat
+
+# Client-side public files
+public
+
+.git/*
