@@ -45,6 +45,12 @@ var qlist = {startref: 0,
       case "stop":
         clearInterval(displayLoop);
         break;
+      case "movement":
+        document.getElementById("MVT_Field").innerHTML = message;
+        break;
+      case "marker":
+        document.getElementById("MKR_Field").innerHTML = message;
+        break;
       default:
         console.error("Invalid Max message type.")
     }
@@ -55,7 +61,7 @@ var qlist = {startref: 0,
         var rawclock = (Date.now()-qlist.startref) + offset;
         var centseconds = Math.floor(rawclock/10);
         var seconds = Math.floor(rawclock/1000)%60;
-        var minutes = Math.floor(seconds/60);
+        var minutes = Math.floor(rawclock/60000);
         var TC_Format = pad(minutes, 2) + ":" + pad(seconds, 2) + "." + pad(centseconds, 2);
         document.getElementById("TC_Field").innerHTML = TC_Format;
       },10)
