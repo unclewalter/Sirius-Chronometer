@@ -8,7 +8,7 @@
 			"architecture" : "x86"
 		}
 ,
-		"rect" : [ 352.0, 263.0, 640.0, 480.0 ],
+		"rect" : [ 766.0, 346.0, 640.0, 480.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -28,6 +28,20 @@
 		"digest" : "",
 		"tags" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-3",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 535.0, 332.0, 65.0, 18.0 ],
+					"text" : "sync 1000"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-100",
 					"maxclass" : "button",
@@ -62,7 +76,6 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "list", "bang" ],
 					"patching_rect" : [ 407.0, 204.0, 39.0, 20.0 ],
-					"presentation_rect" : [ 50.0, 66.0, 0.0, 0.0 ],
 					"text" : "when"
 				}
 
@@ -90,8 +103,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 387.75, 136.0, 71.0, 20.0 ],
-					"text" : "metro 2000"
+					"patching_rect" : [ 387.75, 136.0, 65.0, 20.0 ],
+					"text" : "metro 500"
 				}
 
 			}
@@ -105,7 +118,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 286.5, 169.0, 119.0, 18.0 ],
-					"presentation_rect" : [ 285.0, 164.0, 0.0, 0.0 ],
 					"text" : "movement capricorn"
 				}
 
@@ -120,7 +132,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 286.5, 244.0, 58.0, 18.0 ],
-					"presentation_rect" : [ 290.0, 241.0, 0.0, 0.0 ],
 					"text" : "marker 2"
 				}
 
@@ -315,7 +326,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 262.0, 312.0, 58.0, 18.0 ],
-					"presentation_rect" : [ 265.0, 312.0, 0.0, 0.0 ],
 					"text" : "marker 1"
 				}
 
@@ -344,7 +354,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 273.0, 431.0, 71.0, 18.0 ],
-					"presentation_rect" : [ 274.0, 431.0, 0.0, 0.0 ],
 					"text" : "start 10000"
 				}
 
@@ -387,7 +396,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 137.5, 126.0, 171.0, 47.0 ],
-					"text" : "12:01.600"
+					"text" : "03:03.665"
 				}
 
 			}
@@ -431,6 +440,15 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-28", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-3", 0 ]
 				}
 
 			}

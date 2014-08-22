@@ -5,6 +5,7 @@
   var startref = 0;
   var rawclock = 0;
   var active = false;
+  var offset, syncoffset = 0;
 
   socket.on('connect', function () {
     console.log('connected to WebSocket at', socket.io.uri);
@@ -35,14 +36,12 @@
         active = false;
         break;
       case "sync":
-        if (Math.abs(rawclock-message[0])>20 && active) {
-          offset += rawclock-message[0];
-          console.log("resyncing by " + rawclock-message[0] + "ms.");
-        }
-        if (!active) {
-          start(message[0]);
-          startref = Date.now();
-        }
+          if (active) {
+            offset = message[0]
+            startref = Date.now();
+          } else {
+            start(message[0])
+          }
         break;
       case "movement":
         document.getElementById("MVT_Field").innerHTML = message;
@@ -54,11 +53,12 @@
         console.error("Invalid Max message type.")
     }
 
-    function start(offset) {
-      if (typeof offset === "undefined") { offset = 0; }
+    function start(x) {
+      if (typeof x === "undefined") { x = 0; }
+      offset = x;
       if (!active) {
         displayLoop = setInterval(function() {
-          rawclock = (Date.now()-startref) + offset;
+          rawclock = ((Date.now()-startref) + offset);
           var centseconds = Math.floor(rawclock/10);
           var seconds = Math.floor(rawclock/1000)%60;
           var minutes = Math.floor(rawclock/60000);
