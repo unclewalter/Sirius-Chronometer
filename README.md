@@ -5,9 +5,6 @@ This NodeJS app allows any mobile device with a HTML5 compliant web-browser to s
 
 This is not a complete implementation as it had to be assembled quickly for a to facilitate performer cueing and synchronisation for the rehearsal and performance of Karlheinz Stockhausen's work, Sirius.
 
-----------
-
-
 Architecture
 ------------
 
@@ -37,8 +34,10 @@ The incoming messages are simple key-value pairs formatted as OSC lists. There a
 
 For *control* messages the two simplest messages are:
 
+```
 start
 stop
+```
 
 These are pretty self-explanatory. By default, they do not require values to be associated. However, it's important to note that a *start* message without a timecode value will start the chronometer from 00:00.00.
 
@@ -87,7 +86,7 @@ Usage
 1. Make sure you have Node.js installed. You can download it from [nodejs.org](http://nodejs.org/download/ "Node.js").
 
 2. Start the Node.js server by navigating to the project root directory in the terminal and executing this shell command:
-> node server.js
+`node server.js`
 
 3. Open your Max patch making sure that your udpsend object's settings match the UDP port number set in *config.js* and ip address of the machine it is running on. If it is running the same machine, use the local host ip address: 127.0.0.1
 
@@ -99,8 +98,8 @@ Usage
 
 From there you should be good to go.
 
-General notes
--------------
+General
+-------
 
 While you can use a laptops internal wi-fi card as the base station for the clients, just remember that in some venues the transmission power might not be sufficient to compete with existing RF traffic, work at a distance or through walls.
 
@@ -110,9 +109,32 @@ This app will also work fine with any other OSC capable software. So you can eas
 
 I have included an example Max patch in order to test things.
 
-Best of luck!
+I would love to know what folks end up doing with this. Be sure to let me know.
+
+Happy performing!
 
 License
 -------
+# License
 
+The MIT License (MIT)
 
+Copyright (c) 2015 Kevan Atkins
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
