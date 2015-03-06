@@ -1,7 +1,7 @@
 var env = process.env;
 
 module.exports =  {
-  // port for the express app
+  // TCP port for the clients to connect to.
   port: env['PORT'] || 3000,
 
   // udp connection details for MaxMSP
