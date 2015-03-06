@@ -36,27 +36,32 @@ Message Structure
 The incoming messages are simple key-value pairs formatted as OSC lists. There are two main message types: *control* and *cue* messages.
 
 For *control* messages the two simplest messages are:
-> start
-> stop
+
+start
+stop
 
 These are pretty self-explanatory. By default, they do not require values to be associated. However, it's important to note that a *start* message without a timecode value will start the chronometer from 00:00.00.
 
 In order to start from a defined point, simply send append the time location in playback in form of milliseconds from the beginning. For example:
 
-> start 10000
+```
+start 10000
+```
 
 This will start the chronometer at 00:10.00
 
 The third type of message is the *sync* message. It is similar to the start message in except to be used while already in playback mode. Your Max patch should send this message at a regular interval such as every 2 seconds. So what would be sent out in a typical playback scenario could be as follows:
 
-> start 0
-> sync 2000
-> sync 4000
-> sync 6000
-> ...
-> sync 1224000
-> sync 1226000
-> stop
+```
+start 0
+sync 2000
+sync 4000
+sync 6000
+...
+sync 1224000
+sync 1226000
+stop
+```
 
 **Notes:**
 
@@ -70,8 +75,10 @@ The other type of message is a *cueing* message:
 
 Their structure is relatively simple:
 
-> movement `<movement name>`
-> marker `<marker number>`
+```
+movement <movement name>
+marker <marker number>
+```
 
 If a client connects during playback mode, the most recent cueing messages will be sent by the server.
 
@@ -87,7 +94,8 @@ Usage
 4. Connect the client devices to the same network as the server is running on.
 
 5. In the devices' web browsers, type in the IP address of the computer that the *server* is running on, then a colon and TCP port set in *config.js*. So if the computer's IP address is 192.168.1.12 and the TCP port is 3000 for example, you would type into the clients' browsers:
-> http://192.168.1.12:3000/
+
+`http://192.168.1.12:3000/`
 
 From there you should be good to go.
 
