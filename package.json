@@ -1,6 +1,6 @@
 {
-  "name": "myles-tcp-timecode",
-  "version": "0.0.1",
+  "name": "sirius-chronometer",
+  "version": "0.0.2",
   "description": "Express app for showing timecodes from max-msp on browsers",
   "main": "server.js",
   "dependencies": {
