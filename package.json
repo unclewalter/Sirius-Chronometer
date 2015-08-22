@@ -1,8 +1,25 @@
 {
   "name": "sirius-chronometer",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Express app for showing timecodes from max-msp on browsers",
-  "main": "server.js",
+  "main": "window.html",
+  "node-main": "server.js",
+  "window": {
+    "title": "Sirius Chronometer",
+    "icon": "link.png",
+    "toolbar": false,
+    "frame": true,
+    "width": 500,
+    "height": 300,
+    "position": "mouse",
+    "min_width": 400,
+    "min_height": 200,
+    "max_width": 800,
+    "max_height": 600
+  },
+  "webkit": {
+    "plugin": true
+  },
   "dependencies": {
     "debug": "~0.7.0",
     "express": "^4.4.5",
@@ -10,7 +27,9 @@
     "socket.io": "^1.0.6",
     "node-osc": "~0.2.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nw-builder": "^2.0.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
