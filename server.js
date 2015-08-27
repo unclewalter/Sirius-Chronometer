@@ -5,7 +5,7 @@ var app     = express();
 var logger  = require('morgan');
 var server  = require('http').Server(app);
 var io      = require('socket.io')(server);
-var osc     = require('node-osc')
+var osc     = require('node-osc');
 
 var debug = function() {
   if (config.debug) {

@@ -21,51 +21,45 @@
 		code {
 			margin-left: 10px;
 		}
-
 	</style>
 	<script>
-        function gotoChronometer(){
-            window.location.assign('http://localhost:3000/');
-            window.resizeTo(800, 300);    
-        }
-    </script>
+	function gotoChronometer(){
+		window.location.assign('http://localhost:3000/');
+		window.resizeTo(800, 600);
+	}
+	</script>
 </head>
 <body>
-    <h1>Usage</h1> 
-    <p>
-    	On the mobile device, type: 
-    </p>
-    <code>
-    	<script>
-    		'use strict';
-
-				var os = require('os');
-				var ifaces = os.networkInterfaces();
-
-				Object.keys(ifaces).forEach(function (ifname) {
-				  var alias = 0
-				    ;
-
-				  ifaces[ifname].forEach(function (iface) {
-				    if ('IPv4' !== iface.family || iface.internal !== false) {
-				      // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
-				      return;
-				    }
-
-				    if (alias >= 1) {
-				      // this single interface has multiple ipv4 addresses
-				      document.write('http://' + alias, iface.address + ':3000');
-				    } else {
-				      // this interface has only one ipv4 adress
-				      document.write('http://' + iface.address + ':3000');
-				    }
-				  });
+	<h1>Usage</h1>
+	<p>
+		On the mobile device, type:
+	</p>
+	<code>
+	<script>
+		'use strict';
+			var os = require('os');
+			var ifaces = os.networkInterfaces();
+			Object.keys(ifaces).forEach(function (ifname) {
+				var alias = 0;
+				ifaces[ifname].forEach(function (iface) {
+					if ('IPv4' !== iface.family || iface.internal !== false) {
+						// skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+						return;
+					}
+					if (alias >= 1) {
+						// this single interface has multiple ipv4 addresses
+						document.write('http://' + alias, iface.address + ':3000');
+					} else {
+						// this interface has only one ipv4 adress
+						document.write('http://' + iface.address + ':3000');
+					}
 				});
-    	</script>
-    </code>
-    <p>into the browser.</p>
-    <p>
-    	On this machine, simply <button class="goButton" onclick="gotoChronometer()">click here</button>
-    </p>
+			});
+	</script>
+	</code>
+	<p>into the browser.</p>
+	<p>
+		On this machine, simply <button class="goButton" onclick="gotoChronometer()">click here</button>
+	</p>
 </body>
 </html>
