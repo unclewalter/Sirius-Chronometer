@@ -13,6 +13,8 @@ var debug = function() {
   }
 };
 
+// Current marker and movement numbers.
+
 var marker = "";
 var movement = "";
 

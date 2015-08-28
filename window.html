@@ -24,9 +24,26 @@
 	</style>
 	<script>
 	function gotoChronometer(){
-		window.location.assign('http://localhost:3000/');
-		window.resizeTo(800, 600);
+		var new_win = gui.Window.open('http://localhost:3000/', {
+			position: 'center',
+				toolbar: false,
+		  width: 800,
+		  height: 600
+		});
 	}
+
+	// Load native UI library
+	var gui = require('nw.gui');
+
+	// Create menu
+	var menu = new gui.Menu({ type: 'menubar' });
+
+	// create MacBuiltin
+	menu.createMacBuiltin('Sirius Chronometer',{});
+
+	// Append Menu to Window
+	gui.Window.get().menu = menu;
+
 	</script>
 </head>
 <body>
