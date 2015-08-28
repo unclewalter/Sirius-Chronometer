@@ -1,12 +1,12 @@
 {
   "name": "sirius-chronometer",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "description": "Express app for showing timecodes from max-msp on browsers",
   "main": "window.html",
   "node-main": "server.js",
   "window": {
     "title": "Sirius Chronometer",
-    "icon": "link.png",
+    "icon": "icon.png",
     "toolbar": false,
     "frame": true,
     "width": 500,
