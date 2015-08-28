@@ -83,22 +83,10 @@ If a client connects during playback mode, the most recent cueing messages will 
 
 Usage
 -----
-1. Make sure you have Node.js installed. You can download it from [nodejs.org](http://nodejs.org/download/ "Node.js").
-
-2. Before running the system for the first time, make sure you've installed the dependencies by navigating to the project root directory in the terminal and running this shell command: `npm install`. You can skip this step on subsequent runs.
-
-3. Start the Node.js server by running:
-`node server.js`
-
-4. Open your Max patch making sure that your udpsend object's settings match the UDP port number set in *config.js* and ip address of the machine it is running on. If it is running the same machine, use the local host ip address: 127.0.0.1
-
-5. Connect the client devices to the same network as the server is running on.
-
-6. In the devices' web browsers, type in the IP address of the computer that the *server* is running on, then a colon and TCP port set in *config.js*. So if the computer's IP address is 192.168.1.12 and the TCP port is 3000 for example, you would type into the clients' browsers:
-
-`http://192.168.1.12:3000/`
-
-From there you should be good to go.
+1. Launch the app.
+2. Launch what ever is sending the OSC messages.
+3. With the other devices on the same network as the computer, type in the address shown in the app's instruction window.
+4. Show time!
 
 General
 -------
