@@ -1,12 +1,10 @@
-Sirius Chronometer
-==================
+#Sirius Chronometer
 
 This NodeJS app allows any mobile device with a HTML5 compliant web-browser to synchronise with MaxMSP. It has some built-in redundancy to allow it to continue running should the network drop out for some reason.
 
 This is not a complete implementation as it had to be assembled quickly for a to facilitate performer cueing and synchronisation for the rehearsal and performance of Karlheinz Stockhausen's work, Sirius.
 
-Architecture
-------------
+## Architecture
 
 This app is built around a very simple client/server architecture consisting of the laptop as the *server* running the MaxMSP patch and Node and smartphones as *clients* on the same network running the time display in their browsers.
 
@@ -27,8 +25,7 @@ The **client**'s functionality is as follows:
 - If it receives a sync message after recovering from a crash or drop in connection and it's not currently in play mode, it will jump to the timecode point received and re-synchronise with the playback.
 
 
-Message Structure
------------------
+## Message Structure
 
 The incoming messages are simple key-value pairs formatted as OSC lists. There are two main message types: *control* and *cue* messages.
 
@@ -62,13 +59,13 @@ sync 1226000
 stop
 ```
 
-**Notes:**
+_Notes:_
 
 - For the best performance, I would not recommend using start and sync messages interchangeably. Also it makes debugging easier.
 
 - While you can set the interval to be less frequent, remember that this will effectively determine the maximum recovery time of your client. So, if you set a sync interval of 20 seconds, for example, and the client has had re-opened after failure immediately after a sync message, it will take 20 seconds before the client is in sync again.
 
----------
+---------------------------
 
 The other type of message is a *cueing* message:
 
@@ -81,15 +78,13 @@ marker <marker number>
 
 If a client connects during playback mode, the most recent cueing messages will be sent by the server.
 
-Usage
------
+## Usage
 1. Launch the app.
 2. Launch what ever is sending the OSC messages.
 3. With the other devices on the same network as the computer, type in the address shown in the app's instruction window.
 4. Show time!
 
-General
--------
+## General
 
 While you can use a laptops internal wi-fi card as the base station for the clients, just remember that in some venues the transmission power might not be sufficient to compete with existing RF traffic, work at a distance or through walls.
 
@@ -97,14 +92,13 @@ Although this system is designed to be robust, it is still best practice to use 
 
 This app will also work fine with any other OSC capable software. So you can easily make use of other environments such as Supercollider, Processing, Bidule or any software which allows you to send custom OSC messages.
 
-I have included an example Max patch in order to test things.
+I have included an example Max patch in order to test things or as a starting point.
 
 I would love to know what folks end up doing with this. Be sure to let me know.
 
 Happy performing!
 
-License
--------
+## License
 
 The MIT License (MIT)
 
