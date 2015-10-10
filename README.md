@@ -27,7 +27,7 @@ The **client**'s functionality is as follows:
 
 ## Message Structure
 
-The incoming messages are simple key-value pairs formatted as OSC lists. There are two main message types: *control* and *cue* messages.
+The incoming messages are simple key-value pairs formatted as OSC lists sent to port 33333. There are two main message types: *control* and *cue* messages.
 
 For *control* messages the two simplest messages are:
 
